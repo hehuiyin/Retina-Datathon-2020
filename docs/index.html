@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Retina AI" />
+
+
+<title>Datathon</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Retina Datathon 2020</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="index.html">Analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Datathon</h1>
+<h4 class="author"><a href="https://retina.ai">Retina AI</a></h4>
+<h4 class="date">9/24/2020</h4>
+
+</div>
+
+
+<div id="retina-ai-r-datathon" class="section level2">
+<h2>Retina AI R Datathon</h2>
+<p><em>Team Name</em>: Datalicious<br />
+<em>Team Members</em>: Cloris He, Kevin Cheung, Mira Daya<br />
+<em>Team Members Email</em>: <a href="mailto:huiyinh2@uci.edu" class="email">huiyinh2@uci.edu</a>, <a href="mailto:kmcheun1@uci.edu" class="email">kmcheun1@uci.edu</a>, <a href="mailto:mdaya@uci.edu" class="email">mdaya@uci.edu</a><br />
+<em>Designated Slides</em>: 7,8<br />
+</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="task-1" class="section level2">
+<h2>Task 1</h2>
+<p><em>Slide Number</em>: 7 </p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><em>Key Insights</em> :</p>
+<ol style="list-style-type: decimal">
+<li>Upon analyzing the visualization and data given, there is a steep decline in customer cohort retention from initial time of joining, or time of first purchase, to end of 1 year since joining for each cohort. This means that customers are most likely to stop purchasing products within 1 year of their first purchase at Groomers. After 1 year, there is a steady decline in retention. Groomers is still losing customers but at a much slower rate. Therefore, the customer churn rate is high for Groomers in the first 12 months of being a customers compared to after.<br />
+</li>
+</ol>
+<ul>
+<li><p><strong>Groomers’ customers leave at a rapid rate within their first year of joining the company. Business Implications and Suggestions:</strong></p>
+<ul>
+<li>Customers lose interest in Groomers’ products quickly within the first year of initial purchase. This could be due to the product itself. The issues that may be prevalent are bad product quality, popular competitor products, or marketing and presentation of products. Groomers should consider conducting market analysis to identify which areas they may be lacking in regarding product presentation and popularity.</li>
+<li>Customers may not be getting the experience they are looking for when going to purchase or using Groomers’ products. The more recent cohorts have a lower customer retention rate at Groomers than older cohorts which may indicate quality of customer service experience declining in the first year. Groomers should consider collecting survey data on customer experience both for in store experience and using the product itself.</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>The average retention rate is around 21.1% after the first year and continues to steadily decrease. The 2016 cohort is above average in customer retention throughout their timeline. Additionally, the 2016 cohort has the highest retention rate after the first year of joining until the end of time. This indicates that the 2016 cohort includes Groomers’ most loyal customers.<br />
+</li>
+</ol>
+<ul>
+<li><p><strong>Groomer’s most loyal cohort is those customers that joined in 2016. Business Implications and Suggestions:</strong></p>
+<ul>
+<li>The 2016 cohort is the most loyal to Groomers, their customer retention rates are above average, meaning that more customers out of this cohort are staying with the company for a longer period of time. Groomers should consider focusing efforts on the 2016 cohort to ensure that they continue to stay loyal to their company. Groomers should consider creating a loyalty program to continue to incentive loyal customers to repeat purchases.</li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+<p><em>Slide Number</em>: 8<br />
+</p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><em>Key Insights</em>:</p>
+<ol style="list-style-type: decimal">
+<li>Overall, there is a steep decline in revenue retention from the initial period of joining Groomers, to the end of recorded time for each cohort. After each consecutive year, customers are not spending as much as they did at their initial purchase time.<br />
+</li>
+</ol>
+<ul>
+<li><p><strong>Business Implication:</strong></p>
+<ul>
+<li>Groomers is losing ~ 84.2% - 89% of revenue from initial purchase to end of time period for each of the cohorts. In order to increase revenue retention, Groomers should implement subscription program which would allow more consistent stream of revenue per customer.</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Each cohort follows a decreasing revenue retention trend as mentioned above, however, the more recent the cohort, the faster decline in revenue retention they have. Consider comparing all cohorts’ percent revenue retention:<br />
+</li>
+</ol>
+<ul>
+<li><p>The 2019 cohort shows the least revenue retention compared to all other active cohorts in year 1.</p></li>
+<li><p>The 2018 cohort shows the least revenue retention compared to all other active cohorts in year 2.</p></li>
+<li><p>The 2017 cohort shows the least revenue retention compared to all other active cohorts in year 3.</p></li>
+<li><p>The 2016 cohort represents the most revenue retention by cohort.</p></li>
+<li><p><strong>Business Implication:</strong></p>
+<ul>
+<li>The 2016 cohort has the highest revenue retention. Groomers should focus their efforts on analyzing the 2016 cohort. Some possible methods are running cluster analysis to find similarities on 2016 cohort.</li>
+<li>Groomers should consider running a cluster analysis to find out which customers are more similar to each other. This can be used to find and compare which cohorts are more similar.</li>
+<li>Additionally, Groomers should consider using the KNN approach to find cohort customers similar to the 2016 cohort to predict purchasing patterns and create targeted marketing campaigns to retain similar customers.</li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="task-2" class="section level2">
+<h2>Task 2</h2>
+<div id="automatically-generate-insights-for-the-slides." class="section level5">
+<h5>Automatically generate insights for the slides.</h5>
+</div>
+<div id="slide-number-7" class="section level3">
+<h3><em>Slide Number</em>: &lt;7&gt; </h3>
+<div id="insight-1." class="section level5">
+<h5>Insight 1.</h5>
+<pre><code>## [1] &quot;There is a steep decline in percent retention in year 1 for cohort  2016 . Customers in this cohort are more likely to stop purchasing products at Groomers within 1 year of their first purchase&quot;
+## [1] &quot;There is a steep decline in percent retention in year 1 for cohort  2017 . Customers in this cohort are more likely to stop purchasing products at Groomers within 1 year of their first purchase&quot;
+## [1] &quot;There is a steep decline in percent retention in year 1 for cohort  2018 . Customers in this cohort are more likely to stop purchasing products at Groomers within 1 year of their first purchase&quot;
+## [1] &quot;There is a steep decline in percent retention in year 1 for cohort  2019 . Customers in this cohort are more likely to stop purchasing products at Groomers within 1 year of their first purchase&quot;</code></pre>
+</div>
+<div id="insight-2." class="section level5">
+<h5>Insight 2.</h5>
+<pre><code>## [1] &quot;The slope for the 2016 Cohort is: -19.41 . The slope is negative meaning that customer retention decreases with time.&quot;
+## [1] &quot;The slope for the 2017 Cohort is: -21.45 . The slope is negative meaning that customer retention decreases with time.&quot;
+## [1] &quot;The slope for the 2018 Cohort is: -22.22 . The slope is negative meaning that customer retention decreases with time.&quot;
+## [1] &quot;The slope for the 2019 Cohort is: -21.36 . The slope is negative meaning that customer retention decreases with time.&quot;
+## [1] &quot;Cohort 2018 has the steepest slope, meaning that customer retention rate has the greatest change.&quot;</code></pre>
+</div>
+<div id="insight-3." class="section level5">
+<h5>Insight 3.</h5>
+<pre><code>## [1] &quot;2016 cohort has the highest retention rate in year 0&quot;
+## [1] &quot;2016 cohort has the highest retention rate in year 1&quot;
+## [1] &quot;2016 cohort has the highest retention rate in year 2&quot;
+## [1] &quot;2016 cohort has the highest retention rate in year 3&quot;
+## [1] &quot;2016 cohort has the highest retention rate in year 4&quot;</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="slide-number-8" class="section level3">
+<h3><em>Slide Number</em>: &lt;8&gt;</h3>
+<div id="insight-1.-1" class="section level5">
+<h5>Insight 1.</h5>
+<pre><code>## [1] &quot;The slope for 2016 Cohort is: -19.89 . Revenue retention is decreasing with time.&quot;
+## [1] &quot;The slope for 2017 Cohort is: -23.09 . Revenue retention is decreasing with time.&quot;
+## [1] &quot;The slope for 2018 Cohort is: -23.9 . Revenue retention is decreasing with time.&quot;
+## [1] &quot;The slope for 2019 Cohort is: -21.58 . Revenue retention is decreasing with time.&quot;
+## [1] &quot;Cohort 2018 has the steepest slope, meaning that customer retention rate has the greatest change.&quot;</code></pre>
+</div>
+<div id="insight-2.-1" class="section level5">
+<h5>Insight 2.</h5>
+<pre><code>## [1] &quot;2019 cohort has the minimum revenue retention rate in year 1&quot;
+## [1] &quot;2018 cohort has the minimum revenue retention rate in year 2&quot;
+## [1] &quot;2017 cohort has the minimum revenue retention rate in year 3&quot;
+## [1] &quot;2016 cohort has the minimum revenue retention rate in year 4&quot;</code></pre>
+</div>
+<div id="insight-3.-1" class="section level5">
+<h5>Insight 3.</h5>
+<pre><code>## [1] &quot;2016 cohort has the highest revenue retention rate in year 0&quot;
+## [1] &quot;2016 cohort has the highest revenue retention rate in year 1&quot;
+## [1] &quot;2016 cohort has the highest revenue retention rate in year 2&quot;
+## [1] &quot;2016 cohort has the highest revenue retention rate in year 3&quot;
+## [1] &quot;2016 cohort has the highest revenue retention rate in year 4&quot;</code></pre>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

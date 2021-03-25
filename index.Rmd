@@ -1,0 +1,333 @@
+---
+title: "Analysis"
+author: "Huiyin(Cloris) He"
+date: "9/24/2020"
+output: 
+  html_document:
+    toc: True
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+---
+title: "Datathon"
+author: "[Retina AI](https://retina.ai)"
+date: "9/24/2020"
+output: 
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(glue)
+library(tidyverse)
+library(dplyr)
+#library(highcharter)
+knitr::opts_chunk$set(echo = FALSE)
+#test_data1 <- read_csv('')
+#test_data2 <- read_csv('')
+#test_data3 <- read_csv('')
+```
+
+
+## Retina AI R Datathon
+
+*Team Name*: Datalicious \
+*Team Members*: Cloris He, Kevin Cheung, Mira Daya \
+*Team Members Email*: huiyinh2@uci.edu, kmcheun1@uci.edu, mdaya@uci.edu\
+*Designated Slides*: 7,8 \
+
+```{r, include=FALSE}
+#Include your codes to read all datasets here
+#For example,
+# data_7 = read.csv("slide7.csv")
+# data_8 = read.csv("slide8.csv")
+```
+
+\pagebreak
+
+## Task 1
+
+*Slide Number*: 7\ 
+
+```{r,include=FALSE}
+library(imager)
+```
+```{r}
+plot(load.image('~/Documents/UCI/Retina Datathon/Datalicious/Slide7.jpg'))
+```
+
+*Key Insights* \: 
+
+1. Upon analyzing the visualization and data given, there is a steep decline in customer cohort retention from initial time of joining, or time of first purchase, to end of 1 year since joining for each cohort. This means that customers are most likely to stop purchasing products within 1 year of their first purchase at Groomers.  After 1 year, there is a steady decline in retention. Groomers is still losing customers but at a much slower rate. Therefore, the customer churn rate is high for Groomers in the first 12 months of being a customers compared to after.\
+
+* **Groomers' customers leave at a rapid rate within their first year of joining the company. Business Implications and Suggestions:**
+
+  + Customers lose interest in Groomers' products quickly within the first year of initial purchase. This could be due to the product itself. The issues that may be prevalent are bad product quality, popular competitor products, or marketing and presentation of products. Groomers should consider conducting market analysis to identify which areas they may be lacking in regarding product presentation and popularity. 
+  + Customers may not be getting the experience they are looking for when going to purchase or using Groomers' products. The more recent cohorts have a lower customer retention rate at Groomers than older cohorts which may indicate quality of customer service experience declining in the first year. Groomers should consider collecting survey data on customer experience both for in store experience and using the product itself.
+  
+2. The average retention rate is around 21.1% after the first year and continues to steadily decrease. The 2016 cohort is above average in customer retention throughout their timeline. Additionally, the 2016 cohort has the highest retention rate after the first year of joining until the end of time. This indicates that the 2016 cohort includes Groomers' most loyal customers.\
+
+* **Groomer's most loyal cohort is those customers that joined in 2016. Business Implications and Suggestions:**
+
+  + The 2016 cohort is the most loyal to Groomers, their customer retention rates are above average, meaning that more customers out of this cohort are staying with the company for a longer period of time. Groomers should consider focusing efforts on the 2016 cohort to ensure that they continue to stay loyal to their company. Groomers should consider creating a loyalty program to continue to incentive loyal customers to repeat purchases.
+
+\pagebreak
+
+*Slide Number*: 8\
+
+```{r}
+plot(load.image('~/Documents/UCI/Retina Datathon/Datalicious/Slide8.jpg'))
+```
+
+*Key Insights*\: 
+
+1. Overall, there is a steep decline in revenue retention from the initial period of joining Groomers, to the end of recorded time for each cohort. After each consecutive year, customers are not spending as much as they did at their initial purchase time.  \
+
+* **Business Implication:**
+
+  + Groomers is losing ~ 84.2% - 89% of revenue from initial purchase to end of time period for each of the cohorts. In order to increase revenue retention, Groomers should implement subscription program which would allow more consistent stream of revenue per customer. 
+  
+2. Each cohort follows a decreasing revenue retention trend as mentioned above, however, the more recent the cohort, the faster decline in revenue retention they have. Consider comparing all cohorts' percent revenue retention:   \
+  + The 2019 cohort shows the least revenue retention compared to all other active cohorts in year 1. 
+  + The 2018 cohort shows the least revenue retention compared to all other active cohorts in year 2.
+  + The 2017 cohort shows the least revenue retention compared to all other active cohorts in year 3.
+  + The 2016 cohort represents the most revenue retention by cohort.
+
+* **Business Implication:** 
+  + The 2016 cohort has the highest revenue retention. Groomers should focus their efforts on analyzing the 2016 cohort. Some possible methods are running cluster analysis to find similarities on 2016 cohort.
+  + Groomers should consider running a cluster analysis to find out which customers are more similar to each other. This can be used to find and compare which cohorts are more similar. 
+  + Additionally, Groomers should consider using the KNN approach to find cohort customers similar to the 2016 cohort to predict purchasing patterns and create targeted marketing campaigns to retain similar customers.
+  
+\pagebreak
+
+## Task 2
+##### Automatically generate insights for the slides.
+
+```{r, include=FALSE}
+library(glue)
+library(tidyverse)
+#library(highcharter)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+### *Slide Number*: <7>\ 
+
+
+##### Insight 1.
+```{r}
+#Enter your codes to automize insights for the first slide here
+### Insight 1
+# Reference for Elbow finder: https://stackoverflow.com/questions/2018178/finding-the-best-trade-off-point-on-a-curve
+slide_7 = read.csv("~/Documents/UCI/Retina Datathon/Datalicious/slide7.csv")
+data = slide_7
+
+fun1 = function(data){
+  
+  elbow_finder <- function(x_values, y_values) {
+    # Max values to create line
+    max_x_x <- max(x_values)
+    max_x_y <- y_values[which.max(x_values)]
+    max_y_y <- max(y_values)
+    max_y_x <- x_values[which.max(y_values)]
+    max_df <- data.frame(x = c(max_y_x, max_x_x), y = c(max_y_y, max_x_y))
+    
+    # Creating straight line between the max values
+    fit <- lm(max_df$y ~ max_df$x)
+    
+    # Distance from point to line
+    distances <- c()
+    for(i in 1:length(x_values)) {
+      distances <- c(distances, abs(coef(fit)[2]*x_values[i] - y_values[i] + coef(fit)[1]) / sqrt(coef(fit)[2]^2 + 1^2))
+    }
+    
+    # Max distance point
+    x_max_dist <- x_values[which.max(distances)]
+    y_max_dist <- y_values[which.max(distances)]
+    
+    return(c(x_max_dist, y_max_dist))
+  }
+  
+  data[is.na(data)] = 0
+  
+  year_lab = function(data){
+    
+    cls = colnames(data)
+    cls = cls[-1]
+    cls = cls[-(length(cls))] # last column is avg
+    years = substr(cls, start = 2, stop = 5)
+  }
+  
+  years = year_lab(data)
+  
+  
+  for(i in 2:nrow(data)){
+    e = elbow_finder(data[,i], data[,1])
+    
+    cohort = years 
+    print(paste("There is a steep decline in percent retention in year", e[2], "for cohort ", cohort[i-1], ".", 
+                "Customers in this cohort are more likely to stop purchasing products at Groomers within", e[2], "year of their first purchase"))
+  }
+  #return(insight)
+}
+#Print automated insights
+fun1(slide_7) 
+```
+
+##### Insight 2.
+```{r}
+##Insight 2
+# calculate slope of each curve
+fun2 = function(data){
+  
+  year_lab = function(data){
+    
+    cls = colnames(data)
+    cls = cls[-1]
+    cls = cls[-(length(cls))] # last column is avg
+    years = substr(cls, start = 2, stop = 5)
+  }
+  
+  years = year_lab(data)
+  
+  data[is.na(data)]=0
+  
+  slopes=matrix(NA,nrow=1,ncol=ncol(data)-2)
+  for (i in 1:(nrow(data)-1)){
+    a=lm(data[,i+1] ~ data[,1])
+    coef=a$coefficients
+    coef=as.data.frame(coef)
+    slopes[1,i]=coef[2,]
+    slopes=as.data.frame(slopes)
+    colnames(slopes)[i]=years[i]
+    if (slopes[1,i] <0){
+      print(paste('The slope for the', years[i], 'Cohort is:' , slopes[1,i], 
+                  ".", "The slope is negative meaning that customer retention decreases with time."))
+    }
+    else{
+      print(paste('The slope for', years[i], 'Cohort is:' , slopes[1,i], 
+                  ".", "The slope is positive meaning that customer retention increases with time."))
+    }
+  }
+  ## find the steepest slope
+  abs.slopes=abs(slopes)
+  steep=colnames(abs.slopes)[apply(abs.slopes, MARGIN=1, FUN=which.max)]
+  print(paste('Cohort', steep, 'has the steepest slope, meaning that customer retention rate has the greatest change.'))
+}
+#Print automated insights
+fun2(data) 
+```
+
+##### Insight 3.
+```{R}
+##Insight 3
+## find the highest retention rate
+fun3 = function(data){
+  data[is.na(data)]=0
+  
+  year_lab = function(data){
+    
+    cls = colnames(data)
+    cls = cls[-1]
+    cls = cls[-(length(cls))] # last column is avg
+    years = substr(cls, start = 2, stop = 5)
+  }
+  
+  years = year_lab(data)
+  
+  data$max=colnames(data)[apply(data, MARGIN=1, FUN=which.max)]
+  yr = substr(data$max[1], start = 2, stop = 5)
+  for (i in 1:nrow(data)){
+    print(paste(yr, 'cohort has the highest retention rate in year', data[,1][i]))
+  }
+  #return(insight)
+}
+#Print automated insights
+fun3(data) 
+
+```
+\pagebreak
+
+### *Slide Number*: <8>
+
+##### Insight 1.
+
+```{r, include=TRUE}
+slide_8 = read.csv("~/Documents/UCI/Retina Datathon/Datalicious/slide8.csv")
+dfs8 = slide_8
+##Insight 1
+fun4 = function(dfs8){
+  
+  year_lab = function(dfs8){
+    
+    cls = colnames(dfs8)
+    cls = cls[-1]
+    cls = cls[-(length(cls))] # last column is avg
+    years = substr(cls, start = 2, stop = 5)
+  }
+  
+  years = year_lab(dfs8)
+  
+  dfs8[is.na(dfs8)]=0
+  
+  slopes=matrix(NA,nrow=1,ncol=ncol(dfs8)-2)
+  for (i in 1:(nrow(dfs8)-1)){
+    a=lm(dfs8[,i+1] ~ dfs8[,1])
+    coef=a$coefficients
+    coef=as.data.frame(coef)
+    slopes[1,i]=coef[2,]
+    slopes=as.data.frame(slopes)
+    colnames(slopes)[i]=years[i]
+    if (slopes[1,i] <0){
+      print(paste('The slope for', years[i], 'Cohort is:', slopes[1,i],".",
+                  "Revenue retention is decreasing with time."))
+    }
+    else{
+      print(paste('The slope for', years[i], 'Cohort is:', slopes[1,i],".", 
+                  "Revenue retention is increasing with time."))
+    }
+  }
+  
+  ## find the steepest slope
+  abs.slopes=abs(slopes)
+  steep=colnames(abs.slopes)[apply(abs.slopes, MARGIN=1, FUN=which.max)]
+  print(paste('Cohort', steep, 'has the steepest slope, meaning that customer retention rate has the greatest change.'))
+}
+# Print automated insights
+fun4(dfs8) 
+```
+
+##### Insight 2.
+
+```{r}
+##Insight 2: minimum revenue retention rate
+fun5 = function(dfs8.omit){
+  dfs8.omit=dfs8[,-1]
+  for (i in 2:nrow(dfs8.omit)){
+    a = dfs8.omit[i,][which(!is.na(dfs8.omit[i,]))]
+    b=colnames(a)[apply(a,1,FUN=which.min)]
+    b = substr(b, start = 2, stop = 5)
+    print(paste(b,'cohort has the minimum revenue retention rate in year', dfs8$Years.Since.Joining[i]))
+  }
+}
+# Print automated insights
+fun5(dfs8) 
+```
+
+##### Insight 3. 
+```{r}
+##Insight 3: highest revenue retention rate
+fun6 = function(dfs8){
+  dfs8[is.na(dfs8)]=0
+  dfs8$max=colnames(dfs8)[apply(dfs8, MARGIN=1, FUN=which.max)]
+  yr = substr(dfs8$max, start = 2, stop = 5)
+  for (i in 1:nrow(dfs8)){
+    insight = print(paste(yr[i], 'cohort has the highest revenue retention rate in year', dfs8[,1][i]))
+  }
+}
+# Print automated insights
+fun6(dfs8)
+```
+\pagebreak
+

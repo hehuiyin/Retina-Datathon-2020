@@ -1,0 +1,13 @@
+name: "Retina Datathon 2020"
+navbar:
+  title: "Retina Datathon 2020"
+  left:
+    - text: "About"
+      href: about.html
+    - text: "Analysis"
+      href: index.html
+Output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+output_dir: "docs"
