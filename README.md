@@ -3,7 +3,7 @@
 ## Retina AI - R Datathon
 
 ### Task 1
-Slide 7![image](https://user-images.githubusercontent.com/73683982/131194869-1f6cdb95-8125-4348-be47-27da3277b3a9.png)
+![image](https://user-images.githubusercontent.com/73683982/131194869-1f6cdb95-8125-4348-be47-27da3277b3a9.png)
 
 * Groomers’ customers leave at a rapid rate within their first year of joining the company. Business Implications and Suggestions:
 
@@ -15,7 +15,7 @@ Slide 7![image](https://user-images.githubusercontent.com/73683982/131194869-1f6
 
   + The 2016 cohort is the most loyal to Groomers, their customer retention rates are above average, meaning that more customers out of this cohort are staying with the company for a longer period of time. Groomers should consider focusing efforts on the 2016 cohort to ensure that they continue to stay loyal to their company. Groomers should consider creating a loyalty program to continue to incentive loyal customers to repeat purchases.
 
-Slide 8![image](https://user-images.githubusercontent.com/73683982/131195186-e2046e6a-4134-4570-ace2-8000d3fabf93.png)
+![image](https://user-images.githubusercontent.com/73683982/131195186-e2046e6a-4134-4570-ace2-8000d3fabf93.png)
 
 * Overall, there is a steep decline in revenue retention from the initial period of joining Groomers, to the end of recorded time for each cohort. After each consecutive year, customers are not spending as much as they did at their initial purchase time.
 
